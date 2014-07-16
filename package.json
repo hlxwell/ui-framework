@@ -11,6 +11,8 @@
     "gulp-imagemin": "0.x",
     "gulp-sourcemaps": "1.x",
     "gulp-autoprefixer": "0.x",
+    "node-neat": "1.x", 
+    "node-bourbon": "1.x",
     "win-spawn": "2.x",
     "del": "0.x"
   }

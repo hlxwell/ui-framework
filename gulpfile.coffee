@@ -7,14 +7,20 @@ imagemin = require('gulp-imagemin')
 sourcemaps = require('gulp-sourcemaps')
 autoprefixer = require('gulp-autoprefixer')
 slim = require("gulp-slim")
+bourbon = require('node-bourbon')
 del = require('del')
+path = require('path')
+
+bourbon.with('src/stylesheets/app.sass')
 
 paths =
   htmls: "src/htmls/**/*"
   fonts: "src/fonts/**/*"
   images: "src/images/**/*"
   javascripts: "src/javascripts/**/*"
-  stylesheets: "src/stylesheets/**/*"
+  app_stylesheets: "src/stylesheets/app.sass"
+
+baseIncludePaths = path.join(__dirname, "./src/stylesheets/")
 
 # Not all tasks need to use streams
 # A gulpfile is just another node program and you can use all packages available on npm
@@ -57,8 +63,10 @@ gulp.task 'img', ['clean'], ->
     .pipe gulp.dest('build/images')
 
 gulp.task 'css', ['clean'], ->
-  gulp.src paths.stylesheets
-    .pipe sass({})
+  gulp.src paths.app_stylesheets
+    .pipe sass {
+      loadPath: [bourbon.includePaths, baseIncludePaths]
+    }
     .pipe autoprefixer()
     .pipe gulp.dest('build/stylesheets')
 
